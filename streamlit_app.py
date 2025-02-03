@@ -4,9 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
+
 st.title("X & Y Parallelism and Linearity Analysis")
 st.write("""
-This app analyzes scanning error data.
 - **Error in X**: The difference in X position compared to the expected position after shifting.
 - **Error in Y**: The difference in Y position compared to the expected position after shifting.
 The closer the error is to 0, the straighter the scan.
@@ -123,7 +123,7 @@ if uploaded_file_X is not None and uploaded_file_Y is not None:
     st.markdown("---")
     st.markdown("## Ideal vs. Current Case")
     st.write("""
-The following interactive Plotly chart compares the Ideal Case (a dotted rectangle) versus the Shifted Case (a solid polygon).
+The following interactive Plotly chart compares the Ideal Case (blue-dotted line) versus the Current Case (red-solid line).
 """)
     
     # Create the Plotly analysis using the uploaded files (assumed to be Compensation_X_raw and Compensation_Y_raw)
@@ -179,7 +179,7 @@ The following interactive Plotly chart compares the Ideal Case (a dotted rectang
             x=[x for x, _ in shifted_polygon_vertices],
             y=[y for _, y in shifted_polygon_vertices],
             mode='lines',
-            name='Shifted Case',
+            name='Current Case',
             line=dict(color='red', width=2)
         ))
 
@@ -205,7 +205,7 @@ The following interactive Plotly chart compares the Ideal Case (a dotted rectang
 
         # Customize the layout
         fig_plotly.update_layout(
-            title="Ideal Case vs Shifted Case",
+            title="Ideal Case vs Current Case",
             xaxis_title="X Coordinates",
             yaxis_title="Y Coordinates",
             legend=dict(
@@ -223,7 +223,7 @@ The following interactive Plotly chart compares the Ideal Case (a dotted rectang
         )
         fig_plotly.update_yaxes(scaleanchor="x", scaleratio=1)
 
-        if st.button("Show Interactive Plotly Analysis"):
+        if st.button("Show Interactive Analysis"):
             st.plotly_chart(fig_plotly, use_container_width=True)
 
     except Exception as e:
